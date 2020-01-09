@@ -1,69 +1,64 @@
-import axios from "axios";
-import Head from "../components/head";
-import {
-  Container,
-  Card,
-  CardHeader,
-  CardBody,
-  Form,
-  Input,
-  Button,
-  FormGroup,
-  Label
-} from "reactstrap";
-import { useState } from "react";
+import axios from "axios"
+import Head from "../components/head"
+import Master from "../components/master"
+import Center from "../components/center"
+import { Card, Form, Button, Message } from "semantic-ui-react"
+import { useState } from "react"
+import { useRouter } from "next/router"
 
 const Login = () => {
-  const [data, setData] = useState({});
+  const [form, setForm] = useState({})
+  const [error, setError] = useState()
+  const router = useRouter()
 
   function onChange(e) {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
   async function onSubmit(e) {
-    e.preventDefault();
-    const res = await axios.post("/api/token", data);
-    console.log(res.data);
+    e.preventDefault()
+    try {
+      const res = await axios.post("/api/token", form)
+      router.push("/")
+    } catch (err) {
+      switch (err.response.data.error) {
+        case "USER_NOT_FOUND":
+          setError("Usuario no registrado")
+          break
+        case "INVALID_PASSWORD":
+          setError("Contraseña incorrecta")
+          break
+      }
+    }
   }
 
   return (
-    <Container>
-      <Head title="Inicio de Sesíon" />
-      <div className="mt-5">
-        <div className="row">
-          <div className="col col-md-6 offset-md-3 col-sm-12">
-            <Card>
-              <CardHeader>Inicio de Sesión</CardHeader>
-              <CardBody>
-                <Form onSubmit={onSubmit}>
-                  <FormGroup>
-                    <Label>Correo</Label>
-                    <Input
-                      type="email"
-                      name="email"
-                      required
-                      onChange={onChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label>Contraseña</Label>
-                    <Input
-                      type="password"
-                      name="password"
-                      required
-                      onChange={onChange}
-                    />
-                  </FormGroup>
-                  <Button type="submit" block color="primary">
-                    Inicia Sesión
-                  </Button>
-                </Form>
-              </CardBody>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </Container>
-  );
-};
+    <Master>
+      <Head />
+      <Center>
+        <Card>
+          <Card.Content>
+            <Card.Header textAlign="center">Inicio de Sesión</Card.Header>
+            <Card.Description>
+              <Form onSubmit={onSubmit}>
+                <Form.Field>
+                  <label>Correo</label>
+                  <input name="email" type="email" required onChange={onChange} />
+                </Form.Field>
+                <Form.Field>
+                  <label>Password</label>
+                  <input name="password" type="password" required onChange={onChange} />
+                </Form.Field>
+                <Button type="submit" fluid primary>
+                  Inicia Sesión
+                </Button>
+                {error && <Message color="red">{error}</Message>}
+              </Form>
+            </Card.Description>
+          </Card.Content>
+        </Card>
+      </Center>
+    </Master>
+  )
+}
 
-export default Login;
+export default Login

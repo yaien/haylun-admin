@@ -19,6 +19,10 @@ export class Haylun {
     })
     return new Session(this.baseURL, res.data)
   }
+
+  session(access_token) {
+    return new Session(this.baseURL, { access_token })
+  }
 }
 
 export class Session {
