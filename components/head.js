@@ -1,6 +1,6 @@
-import React from "react";
-import NextHead from "next/head";
-import { string } from "prop-types";
+import React from "react"
+import NextHead from "next/head"
+import { string } from "prop-types"
 
 const Head = props => (
   <NextHead>
@@ -11,10 +11,8 @@ const Head = props => (
     <link rel="icon" href="/favicon.ico" />
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossOrigin="anonymous"
-    ></link>
+      href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+    />
     <meta property="og:url" content={props.url} />
     <meta property="og:title" content={props.title} />
     <meta property="og:description" content={props.description} />
@@ -25,13 +23,13 @@ const Head = props => (
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
   </NextHead>
-);
+)
 
 Head.propTypes = {
   title: string,
   description: string,
   url: string,
   ogImage: string
-};
+}
 
-export default Head;
+export default Head
