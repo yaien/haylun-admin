@@ -14,16 +14,15 @@ export const Session = props => {
   useEffect(() => {
     axios
       .get("/api/user")
-      .then(res => setUser(res.data))
-      .catch(err => setUser(null))
-      .finally(() => setReady(true))
+      .then(res => {
+        setUser(res.data)
+        setReady(true)
+      })
+      .catch(err => {
+        setUser(null)
+        router.push("/login")
+      })
   }, [])
-
-  useEffect(() => {
-    if (ready && !user) {
-      router.push("/login")
-    }
-  }, [user, ready])
 
   if (!ready) {
     return (
