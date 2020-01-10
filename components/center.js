@@ -3,7 +3,7 @@ const Center = props => (
     {props.children}
     <style jsx>{`
       .center {
-        position: absoulute;
+        position: fixed;
         width: 100%;
         height: 100%;
         left: 0;
@@ -11,6 +11,7 @@ const Center = props => (
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 100;
       }
     `}</style>
   </div>

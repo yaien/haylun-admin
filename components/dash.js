@@ -3,13 +3,15 @@ import Master from "./master"
 import { Sidebar, Segment, Menu, Icon, Input } from "semantic-ui-react"
 import { useCallback } from "react"
 import { useRouter } from "next/router"
+import { useSession } from "./session"
 
 const Dash = props => {
   const router = useRouter()
+  const session = useSession()
 
   const logout = async () => {
     try {
-      await axios.post("/api/logout")
+      await session.logout()
       router.push("/login")
     } catch (err) {
       console.error(err)
