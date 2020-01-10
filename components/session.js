@@ -32,10 +32,9 @@ export const Session = props => {
     )
   }
 
-  if (!user) {
-  }
+  const value = { user, ready }
 
-  return <>{props.children}</>
+  return <SessionContext.Provider value={value}>{props.children}</SessionContext.Provider>
 }
 
 export const useSession = () => useContext(SessionContext)

@@ -17,7 +17,7 @@ const Login = () => {
   async function onSubmit(e) {
     e.preventDefault()
     try {
-      const res = await axios.post("/api/token", form)
+      const res = await axios.post("/api/login", form)
       router.push("/")
     } catch (err) {
       switch (err.response.data.error) {
