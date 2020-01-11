@@ -40,6 +40,16 @@ export class Session {
     let res = await this.http.get("/user")
     return res.data
   }
+
+  async getProducts(params) {
+    let res = await this.http.get("/products", { params })
+    return res.data
+  }
+
+  async createProduct(data) {
+    let res = await this.http.post("/products", data)
+    return res.data
+  }
 }
 
 export default new Haylun(env.api.baseURL, env.api.key)

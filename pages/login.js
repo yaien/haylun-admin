@@ -1,4 +1,3 @@
-import axios from "axios"
 import Head from "../components/head"
 import Master from "../components/master"
 import Center from "../components/center"
@@ -36,7 +35,7 @@ const Login = () => {
 
   return (
     <Master>
-      <Head />
+      <Head title="Inicio de Sesión - Admin" />
       <Center>
         <Card>
           <Card.Content>
