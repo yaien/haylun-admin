@@ -12,5 +12,5 @@ export default handler(async (req, res) => {
     maxAge: session.auth.expires_in,
     sameSite: true
   })
-  res.end()
+  res.send(user)
 })

@@ -9,10 +9,6 @@ const Head = props => (
     <meta name="description" content={props.description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.ico" />
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
-    />
     <meta property="og:url" content={props.url} />
     <meta property="og:title" content={props.title} />
     <meta property="og:description" content={props.description} />

@@ -1,12 +1,9 @@
-import { useEffect, useState, Fragment } from "react"
-import Link from "next/link"
-import Head from "../components/head"
-import Master from "../components/master"
-import Dash from "../components/dash"
+import { Fragment } from "react"
 import { Segment, Header, Image } from "semantic-ui-react"
-import { withUser } from "../core/guard"
+import Head from "../components/head"
+import Dash from "../components/dash"
 
-const Home = () => {
+const Products = () => {
   return (
     <Fragment>
       <Head />
@@ -20,4 +17,4 @@ const Home = () => {
   )
 }
 
-export default withUser(Home)
+export default Products

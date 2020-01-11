@@ -1,42 +1,41 @@
-import { createContext, useState, useContext, useEffect } from "react"
+import { createContext, useState, useContext, useEffect, useCallback } from "react"
 import { Loader } from "semantic-ui-react"
 import Center from "./center"
 import axios from "axios"
 import { useRouter } from "next/router"
+import Loading from "./loading"
 
 export const SessionContext = createContext(null)
 
 export const Session = props => {
-  const router = useRouter()
   const [user, setUser] = useState()
   const [ready, setReady] = useState(false)
+
+  const logout = useCallback(async () => {
+    await axios.post("/api/logout")
+    setUser(null)
+  }, [])
+
+  const login = useCallback(async credentials => {
+    let res = await axios.post("/api/login", credentials)
+    setUser(res.data)
+  }, [])
 
   useEffect(() => {
     axios
       .get("/api/user")
       .then(res => setUser(res.data))
-      .catch(err => setUser(null))
+      .catch(() => setUser(null))
       .finally(() => setReady(true))
   }, [])
 
-  useEffect(() => {
-    if (ready && !user) {
-      router.push("/login")
-    }
-  }, [user, ready])
-
   if (!ready) {
-    return (
-      <Center>
-        <Loader size="massive" indeterminate active />
-      </Center>
-    )
+    return <Loading />
   }
 
-  if (!user) {
-  }
+  const value = { user, ready, logout, login }
 
-  return <>{props.children}</>
+  return <SessionContext.Provider value={value}>{props.children}</SessionContext.Provider>
 }
 
 export const useSession = () => useContext(SessionContext)

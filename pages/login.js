@@ -5,11 +5,14 @@ import Center from "../components/center"
 import { Card, Form, Button, Message } from "semantic-ui-react"
 import { useState } from "react"
 import { useRouter } from "next/router"
+import { withGuest } from "../core/guard"
+import { useSession } from "../components/session"
 
 const Login = () => {
   const [form, setForm] = useState({})
   const [error, setError] = useState()
   const router = useRouter()
+  const session = useSession()
 
   function onChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -17,7 +20,7 @@ const Login = () => {
   async function onSubmit(e) {
     e.preventDefault()
     try {
-      const res = await axios.post("/api/token", form)
+      await session.login(form)
       router.push("/")
     } catch (err) {
       switch (err.response.data.error) {
@@ -61,4 +64,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default withGuest(Login)
